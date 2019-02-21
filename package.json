@@ -19,7 +19,7 @@
     "postinstall": "touch secrets.js",
     "seed": "node script/seed.js",
     "start": "node server",
-    "start-dev": "webpack -w & nodemon server/index.js",
+    "start-dev": "webpack -w & nodemon server/main.js",
     "start-server": "nodemon server -e html,js,scss --ignore public --ignore client",
     "test": "NODE_ENV='test' mocha \"./server/**/*.spec.js\" \"./client/**/*.spec.js\" \"./script/**/*.spec.js\" --require @babel/polyfill --require @babel/register"
   },
@@ -46,7 +46,7 @@
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
-    "pg": "^6.1.2",
+    "pg": "^6.4.2",
     "pg-hstore": "^2.3.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
@@ -56,7 +56,7 @@
     "redux": "^3.7.2",
     "redux-logger": "^2.10.2",
     "redux-thunk": "^2.3.0",
-    "sequelize": "^4.38.0",
+    "sequelize": "^4.42.0",
     "socket.io": "^2.1.1"
   },
   "devDependencies": {

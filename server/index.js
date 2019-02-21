@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
+
 module.exports = app;
 
 //Middleware
@@ -40,7 +41,7 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).send(err.message || "Internal server error.");
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port, function() {
-  console.log(`Your server, listening on port ${port}`);
-});
+// const port = process.env.PORT || 3000;
+// app.listen(port, function() {
+//   console.log(`Your server, listening on port ${port}`);
+// });
