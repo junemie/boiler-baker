@@ -3,15 +3,34 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
+const session = require("express-session");
+//requiring database so that we can connect the session with data.
+const db = require("./db");
+//configuring and creating database store to connect the session with database
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
+const dbStore = new SequelizeStore({ db: db });
+
+// sync so that our session table gets created
+dbStore.sync();
 
 module.exports = app;
 
-//Middleware
+//Middleware: LOGGING  and  BODY-PARSING
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//api routes
+//Middleware: SESSION, process.env.SESSION_SECRET is protecting the secret from outside.
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "wildly insecure secret",
+    store: dbStore,
+    resave: false,
+    saveUninitialized: false
+  })
+);
+
+//api routes should come after the session.
 app.use("/api", require("./api"));
 
 // static file-serving middleware
