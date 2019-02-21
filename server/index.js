@@ -10,8 +10,11 @@ const db = require("./db");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const dbStore = new SequelizeStore({ db: db });
 
-// sync so that our session table gets created
+// sync  dbSTore so that our session table gets created
 dbStore.sync();
+
+//passport: after getting user session, we want to attach the user to the request object.
+const passport = require("passport");
 
 module.exports = app;
 
@@ -20,7 +23,7 @@ app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//Middleware: SESSION, process.env.SESSION_SECRET is protecting the secret from outside.
+//SESSION Middleware process.env.SESSION_SECRET is protecting the secret from outside.
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "wildly insecure secret",
@@ -30,8 +33,31 @@ app.use(
   })
 );
 
+//PASSPORT Middleware should come after the Session middleware to attch the user id in the object. Make sure to put this AFTER our session middleware!
+//After user have the session, there is property available called REQ.SESSION - and this will be unique to every client connected to us. We can track them as individual.
+app.use(passport.initialize());
+app.use(passport.session());
+
+//Serialize only happens ONCE per SESSION: after user logs in so that passport knows how to remember the user in our session store.
+passport.serializeUser((user, done) => {
+  try {
+    done(null, user.id);
+  } catch (err) {
+    done(err);
+  }
+});
+
+//Deserialization runs with every request that contains a serialized user on the session so that PASSPORT gets the key that we used to serialize the
+passport.deserializeUser((id, done) => {
+  User.findById(id)
+    .then(user => done(null, user))
+    .catch(done);
+});
+
 //api routes should come after the session.
 app.use("/api", require("./api"));
+//route for when the user logs in locally with our website without 3rd party
+app.use("/auth", require("./auth"));
 
 // static file-serving middleware
 app.use(express.static(path.join(__dirname, "..", "public")));
