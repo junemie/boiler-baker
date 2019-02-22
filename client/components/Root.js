@@ -6,14 +6,8 @@ import {
   Switch,
   withRouter
 } from "react-router-dom";
+import store from "../store";
 import { getMe } from "../store/users";
-// const Root = () => {
-//   return (
-//     <div>
-//       <UserPage />
-//     </div>
-//   );
-// };
 
 class Root extends Component {
   constructor(props) {

@@ -9,15 +9,9 @@ const initialState = {
 };
 
 //Action
-const GET_ALL_USERS = "GET_ALL_USERS";
 const GET_USER = "GET_USER";
 
 //Action creator
-const gotAllUsers = users => ({
-  type: GET_ALL_USERS,
-  users
-});
-
 const gotMe = user => ({
   type: GET_USER,
   user
@@ -44,8 +38,6 @@ export const getMe = () => {
 //Reducer
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "GET_ALL_USERS":
-      return { ...state, users: [...state.users, action.users] };
     case "GET_USER":
       return { ...state, user: action.user };
   }
