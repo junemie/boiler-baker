@@ -19,9 +19,9 @@ class Root extends Component {
   }
   render() {
     return (
-      <div>
-        <UserPage />
-      </div>
+      <Switch>
+        <Route path="/home" component={UserPage} />
+      </Switch>
     );
   }
 }
