@@ -21,6 +21,8 @@ class Root extends Component {
     return (
       <Switch>
         <Route path="/home" component={UserPage} />
+        {/* <Route path="/login" component={Login} /> */}
+        {/* <Route path="/logout" component={}/> */}
       </Switch>
     );
   }
