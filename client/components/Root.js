@@ -1,6 +1,6 @@
 import React from "react";
-import UserPage from "./components/UserPage";
-const App = () => {
+import UserPage from "./UserPage";
+const Root = () => {
   return (
     <div>
       <UserPage />
@@ -8,4 +8,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Root;
