@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import UserPage from "./UserPage";
 import {
   BrowserRouter as Router,
   Route,
@@ -8,6 +7,8 @@ import {
 } from "react-router-dom";
 import store from "../store";
 import { getMe } from "../store/users";
+import UserPage from "./UserPage";
+import Login from "./Login";
 
 class Root extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class Root extends Component {
     return (
       <Switch>
         <Route path="/home" component={UserPage} />
-        {/* <Route path="/login" component={Login} /> */}
+        <Route component={Login} />
         {/* <Route path="/logout" component={}/> */}
       </Switch>
     );

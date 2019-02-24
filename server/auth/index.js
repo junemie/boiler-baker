@@ -14,9 +14,13 @@ module.exports = router;
 */
 
 //USER LOGIN: api/auth/login
-router.post("/loging", async (req, res, next) => {
+router.post("/login", async (req, res, next) => {
   try {
-    const user = await User.findOne({ where: { email: req.body.email } });
+    // console.log("THIS ISSSSSSS REQ BODY: ", req.body);
+    const user = await User.findOne({
+      where: { email: req.body.email }
+    });
+    console.log("THIS IS USER", user);
     if (!user) {
       res.status(401).send("Wrong username and/or password");
     } else if (!user.correctPassword(req.body.password)) {
